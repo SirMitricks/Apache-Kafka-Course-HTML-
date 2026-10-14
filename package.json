@@ -1,0 +1,15 @@
+{
+  "name": "kafka-course",
+  "version": "1.0.0",
+  "description": "Примеры кода методички по Apache Kafka (Node.js)",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@confluentinc/kafka-javascript": "^1.11.0",
+    "@confluentinc/schemaregistry": "^1.11.0",
+    "avsc": "^5.7.9"
+  }
+}

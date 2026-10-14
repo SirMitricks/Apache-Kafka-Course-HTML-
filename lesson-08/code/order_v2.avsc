@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "OrderEvent",
+  "namespace": "shop",
+  "fields": [
+    {"name": "order_id", "type": "int"},
+    {"name": "status", "type": "string"},
+    {"name": "amount", "type": "double"},
+    {"name": "currency", "type": "string", "default": "RUB"}
+  ]
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Урок 2. Установка и первый запуск</title><style>:root{--bg:#faf7f2;--card:#fffdf9;--ink:#3e4456;--muted:#7b8296;--line:#ebe4d8;
+--lav:#e6def7;--lavd:#7d6bb3;--mint:#dcf0e6;--mintd:#4d8d73;--peach:#fbe6d8;--peachd:#b5754c;--sky:#dcebf8;--skyd:#4f84b0;--rose:#f8e1e8;--rosed:#b3647e;--sand:#f5ecd2;--sandd:#9a8444;
+--win:#323849;--bar:#3b4257;--term:#2b3041;--code-ink:#dfe4ef}
+@media (prefers-color-scheme:dark){:root{--bg:#22262f;--card:#2a2f3a;--ink:#dfe3ec;--muted:#98a0b5;--line:#3a4050;--lav:#3a3552;--lavd:#c5b6ee;--mint:#2f4640;--mintd:#9fd8c0;--peach:#4a3a33;--peachd:#f0c2a4;--sky:#2f3f52;--skyd:#9cc8ee;--rose:#4a3640;--rosed:#f0b3c6;--sand:#4a4430;--sandd:#e5d396}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:14px}
+.top a{color:var(--lavd);text-decoration:none;font-weight:600}.top a:hover{text-decoration:underline}
+.pn{display:flex;gap:18px}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+.badge{display:inline-block;background:var(--lav);color:var(--lavd);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px}
+h1{font-size:2rem;line-height:1.25;margin:.2em 0 .8em;color:var(--ink)}
+h2{font-size:1.5rem;margin:2em 0 .6em;color:var(--ink)}
+h3{font-size:1.15rem;margin:1.8em 0 .6em}
+h3.sec{display:flex;align-items:center}
+h3.sec span{display:inline-block;padding:5px 16px;border-radius:12px;font-weight:700}
+.sec-theory span{background:var(--sky);color:var(--skyd)}.sec-practice span{background:var(--mint);color:var(--mintd)}
+.sec-quiz span{background:var(--sand);color:var(--sandd)}.sec-task span{background:var(--rose);color:var(--rosed)}
+p{margin:.8em 0}a{color:var(--skyd)}strong{color:var(--ink)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--lav);color:var(--lavd);padding:.12em .42em;border-radius:6px}
+ul,ol{padding-left:1.4em}li{margin:.3em 0}li::marker{color:var(--lavd)}
+.tw{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{background:var(--sky);color:var(--skyd);text-align:left;padding:10px 14px}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.note{margin:1.2em 0;padding:12px 16px;border-radius:14px;border-left:5px solid}
+.note.warn{background:var(--peach);border-color:var(--peachd)}
+.note.ok{background:var(--mint);border-color:var(--mintd)}
+.note.info{background:var(--sand);border-color:var(--sandd)}
+.note .ni{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mintd);margin-bottom:2px}
+.note code{background:rgba(255,255,255,.55);color:inherit}
+@media (prefers-color-scheme:dark){.note code{background:rgba(0,0,0,.25)}}
+figure.code{margin:1.4em 0}
+figure.code figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;font-size:14px}
+.where{color:var(--muted);flex-basis:100%}.where code{font-size:.9em}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tag-term{background:var(--mint);color:var(--mintd)}.tag-file{background:var(--lav);color:var(--lavd)}
+.win{border-radius:14px;overflow:hidden;background:var(--win);color:var(--code-ink);box-shadow:0 6px 24px rgba(70,60,100,.14)}
+figure.term .win{background:var(--term)}
+.bar{display:flex;align-items:center;gap:12px;background:var(--bar);padding:0 12px;height:38px;font:13px ui-monospace,Menlo,Consolas,monospace}
+figure.term .bar{background:#353b4f}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#f0a7a7}.dots i:nth-child(2){background:#efd29a}.dots i:nth-child(3){background:#a9d9b5}
+.tab{background:var(--win);color:#e8ecf5;padding:0 14px;height:100%;display:flex;align-items:center;gap:8px;border-top:2px solid #b9a9e0}
+figure.term .tab{background:var(--term);border-top-color:#a9d9b5}
+.tab::before{content:"";width:9px;height:9px;border-radius:3px;background:#e8d28f}
+.tab-json::before{background:#f3b98f}.tab-yaml::before{background:#e8a5c0}.tab-sh::before{background:#a9d9b5}
+.lang{margin-left:auto;color:#9aa3bb;font-size:12px}
+.copy{border:0;background:#454d66;color:#dfe4ef;border-radius:8px;padding:4px 10px;font:12px -apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.copy:hover{background:#56608350;background:#566083}
+pre{margin:0;padding:12px 0;overflow-x:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;color:inherit;padding:0;font:inherit;display:block;min-width:max-content}
+.l{display:flex;white-space:pre;padding-right:18px}.l:hover{background:rgba(255,255,255,.04)}
+.n{flex:0 0 3.2em;text-align:right;padding-right:16px;color:#6f7893;user-select:none;-webkit-user-select:none}
+.n.pr{color:#a9d9b5;flex-basis:2.2em;padding-right:8px;font-weight:700}
+.x{flex:1}.cm .x{color:#7f8aa3}
+.t-c{color:#7f8aa3;font-style:italic}.t-k{color:#c9afee}.t-s{color:#a9d9a0}.t-n{color:#f3b98f}.t-f{color:#8fc4ec}.t-b{color:#e8d28f}
+.t-a{color:#8fd0c8}.t-o{color:#e8a5c0}.t-p{color:#a6aec4}.t-v{color:#f3b98f}.t-cmd{color:#8fc4ec;font-weight:600}
+.lead{font-size:1.1rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 8px;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:20px 0}
+.card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;text-decoration:none;color:var(--ink);border:1px solid transparent;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(70,60,100,.12)}
+.card .no{font-weight:800;font-size:1.4rem;opacity:.55}.card .ct{font-weight:600;line-height:1.3}.card .cm{font-size:13px;opacity:.7}
+.c0{background:var(--lav)}.c1{background:var(--mint)}.c2{background:var(--peach)}.c3{background:var(--sky)}.c4{background:var(--rose)}.c5{background:var(--sand)}
+.foot{margin-top:28px;color:var(--muted)}
+pre.plain{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+</style></head>
+<body><div class="top"><a class="home" href="../index.html">&#9776; Оглавление</a><span class="pn"><a href="../lesson-01/lesson.html">&larr; Урок 1</a><a href="../lesson-03/lesson.html">Урок 3 &rarr;</a></span></div>
+<main class="wrap"><div class="badge">Урок 2 из 13</div><h1>Урок 2. Установка и первый запуск</h1>
+<p><strong>Цель:</strong> запустить локальный брокер Kafka 4.3.1 в режиме KRaft и убедиться, что он отвечает.</p>
+<h3 class="sec sec-theory"><span>Теория</span></h3>
+<p>Broker — это процесс (запущенная на компьютере программа) Kafka, который хранит данные и обслуживает клиентов. Раньше для хранения метаданных (служебной информации: какие есть топики и где лежат их копии) кластера (группы серверов Kafka, работающих как одно целое) требовался отдельный сервис ZooKeeper (отдельная программа-координатор, которую Kafka использовала раньше). В Kafka 4.x метаданными управляет сам Kafka по протоколу <strong>KRaft</strong><strong> (встроенному в Kafka способу серверам договариваться, кто главный; протокол — набор правил общения программ)</strong>: узел может быть брокером, контроллером (узлом, ведущим метаданные кластера) или совмещать обе роли. Для обучения мы запускаем один узел в совмещённой роли с файлом <code>config/server.properties</code>.</p>
+<p>Перед первым запуском каталог данных нужно <strong>отформатировать</strong> (подготовить к хранению, как флешку перед записью) и присвоить кластеру уникальный идентификатор (Cluster UUID — случайная метка, по которой узлы узнают, что они из одного кластера).</p>
+<h3 class="sec sec-practice"><span>Практика А. Запуск из дистрибутива</span></h3>
+<ol>
+<li>Проверьте Java:</li>
+</ol>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">java</span> <span class="t-a">-version</span>   <span class="t-c"># нужна версия 17 или выше</span></span></div></code></pre></div></figure>
+<ol>
+<li>Скачайте архив <code>kafka_2.13-4.3.1.tgz</code> со <a href="https://kafka.apache.org/community/downloads">страницы загрузки</a> и распакуйте:</li>
+</ol>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">tar</span> <span class="t-a">-xzf</span> kafka_2.13-4.3.1.tgz</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">cd</span> kafka_2.13-4.3.1</span></div></code></pre></div></figure>
+<ol>
+<li>Сгенерируйте идентификатор кластера и отформатируйте каталоги логов:</li>
+</ol>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">KAFKA_CLUSTER_ID=<span</span> class="t-s">"$(bin/kafka-storage.sh random-uuid)"</span></span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-storage.sh</span> format <span class="t-a">--standalone</span> <span class="t-a">-t</span> <span class="t-v">$KAFKA_CLUSTER_ID</span> <span class="t-a">-c</span> config/server.properties</span></div></code></pre></div></figure>
+<ol>
+<li>Запустите сервер (терминал №1 останется занятым):</li>
+</ol>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-server-start.sh</span> config/server.properties</span></div></code></pre></div></figure>
+<ol>
+<li>В новом терминале проверьте, что брокер отвечает (опция --bootstrap-server задаёт адрес, по которому утилита находит кластер):</li>
+</ol>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-broker-api-versions.sh</span> <span class="t-a">--bootstrap-server</span> localhost:9092 | head <span class="t-a">-n</span> 3</span></div></code></pre></div></figure>
+<div class="note ok"><span class="ni">Ожидаемый результат</span>Ожидаемый результат: строка вида <code>localhost:9092 (id: 1 rack: null ...)</code> и список поддерживаемых версий протокола. Если команда зависла или вернула ошибку соединения, смотрите раздел «Частые ошибки» ниже.</div>
+<h3 class="sec sec-practice"><span>Практика Б. Запуск в Docker (альтернатива)</span></h3>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">docker</span> pull apache/kafka:4.3.1</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">docker</span> run <span class="t-a">-p</span> 9092:9092 apache/kafka:4.3.1</span></div></code></pre></div></figure>
+<p>Образ (готовый «слепок» программы со всём необходимым) <code>apache/kafka</code> уже содержит готовую одноузловую конфигурацию. Служебные скрипты лежат внутри контейнера (изолированной среды, в которой запущен образ): <code>docker exec -it &lt;имя_контейнера&gt; bash</code>, далее каталог <code>/opt/kafka/bin</code>.</p>
+<h3>Первое знакомство с каталогами</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Каталог</th>
+<th>Содержимое</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bin/</code></td>
+<td>Скрипты: <code>kafka-topics.sh</code>, <code>kafka-console-producer.sh</code> и другие</td>
+</tr>
+<tr>
+<td><code>config/</code></td>
+<td>Файлы настроек: <code>server.properties</code>, <code>connect-standalone.properties</code></td>
+</tr>
+<tr>
+<td><code>libs/</code></td>
+<td>Библиотеки Java, в том числе коннекторы</td>
+</tr>
+<tr>
+<td>каталог логов</td>
+<td>Данные топиков; путь задаёт параметр <code>log.dirs</code> в <code>server.properties</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Частые ошибки</h3>
+<ul>
+<li><code>Unsupported class file major version</code>: установлена Java ниже 17.</li>
+<li>Порт 9092 занят: остановите другой процесс или поменяйте <code>listeners</code> в <code>server.properties</code>.</li>
+<li>Брокер не стартует после смены каталога: повторите форматирование (<code>kafka-storage.sh format</code>) для нового <code>log.dirs</code>.</li>
+</ul>
+<h3 class="sec sec-quiz"><span>Контрольные вопросы</span></h3>
+<ul>
+<li>Зачем нужна команда <code>kafka-storage.sh format</code>?</li>
+<li>Какую роль играет KRaft и чем она заменила ZooKeeper?</li>
+<li>Что такое <code>bootstrap-server</code> и почему адрес <code>localhost:9092</code> нужен каждой утилите?</li>
+</ul>
+<h3 class="sec sec-task"><span>Самостоятельное задание</span></h3>
+<p>Откройте <code>config/server.properties</code> и найдите значения параметров <code>process.roles</code>, <code>node.id</code>, <code>listeners</code> и <code>log.dirs</code>. Запишите, что означает каждый, опираясь на раздел Configuration официальной документации.</p></main>
+<script>document.querySelectorAll('figure.code').forEach(function(f){
+  var b=f.querySelector('.copy'); if(!b) return;
+  b.addEventListener('click',function(){
+    var t=Array.from(f.querySelectorAll('.l')).map(function(l){var x=l.querySelector('.x');return x?x.textContent:''}).filter(function(s,i,a){return true}).join('\n');
+    if(f.classList.contains('term')){t=t.split('\n').filter(function(s){return !/^\s*#/.test(s)}).join('\n')}
+    function done(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1500)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done)}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}
+  });
+});
+</script></body></html>

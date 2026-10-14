@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Урок 4. Продюсер и консьюмер из консоли</title><style>:root{--bg:#faf7f2;--card:#fffdf9;--ink:#3e4456;--muted:#7b8296;--line:#ebe4d8;
+--lav:#e6def7;--lavd:#7d6bb3;--mint:#dcf0e6;--mintd:#4d8d73;--peach:#fbe6d8;--peachd:#b5754c;--sky:#dcebf8;--skyd:#4f84b0;--rose:#f8e1e8;--rosed:#b3647e;--sand:#f5ecd2;--sandd:#9a8444;
+--win:#323849;--bar:#3b4257;--term:#2b3041;--code-ink:#dfe4ef}
+@media (prefers-color-scheme:dark){:root{--bg:#22262f;--card:#2a2f3a;--ink:#dfe3ec;--muted:#98a0b5;--line:#3a4050;--lav:#3a3552;--lavd:#c5b6ee;--mint:#2f4640;--mintd:#9fd8c0;--peach:#4a3a33;--peachd:#f0c2a4;--sky:#2f3f52;--skyd:#9cc8ee;--rose:#4a3640;--rosed:#f0b3c6;--sand:#4a4430;--sandd:#e5d396}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:14px}
+.top a{color:var(--lavd);text-decoration:none;font-weight:600}.top a:hover{text-decoration:underline}
+.pn{display:flex;gap:18px}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+.badge{display:inline-block;background:var(--lav);color:var(--lavd);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px}
+h1{font-size:2rem;line-height:1.25;margin:.2em 0 .8em;color:var(--ink)}
+h2{font-size:1.5rem;margin:2em 0 .6em;color:var(--ink)}
+h3{font-size:1.15rem;margin:1.8em 0 .6em}
+h3.sec{display:flex;align-items:center}
+h3.sec span{display:inline-block;padding:5px 16px;border-radius:12px;font-weight:700}
+.sec-theory span{background:var(--sky);color:var(--skyd)}.sec-practice span{background:var(--mint);color:var(--mintd)}
+.sec-quiz span{background:var(--sand);color:var(--sandd)}.sec-task span{background:var(--rose);color:var(--rosed)}
+p{margin:.8em 0}a{color:var(--skyd)}strong{color:var(--ink)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--lav);color:var(--lavd);padding:.12em .42em;border-radius:6px}
+ul,ol{padding-left:1.4em}li{margin:.3em 0}li::marker{color:var(--lavd)}
+.tw{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{background:var(--sky);color:var(--skyd);text-align:left;padding:10px 14px}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.note{margin:1.2em 0;padding:12px 16px;border-radius:14px;border-left:5px solid}
+.note.warn{background:var(--peach);border-color:var(--peachd)}
+.note.ok{background:var(--mint);border-color:var(--mintd)}
+.note.info{background:var(--sand);border-color:var(--sandd)}
+.note .ni{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mintd);margin-bottom:2px}
+.note code{background:rgba(255,255,255,.55);color:inherit}
+@media (prefers-color-scheme:dark){.note code{background:rgba(0,0,0,.25)}}
+figure.code{margin:1.4em 0}
+figure.code figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;font-size:14px}
+.where{color:var(--muted);flex-basis:100%}.where code{font-size:.9em}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tag-term{background:var(--mint);color:var(--mintd)}.tag-file{background:var(--lav);color:var(--lavd)}
+.win{border-radius:14px;overflow:hidden;background:var(--win);color:var(--code-ink);box-shadow:0 6px 24px rgba(70,60,100,.14)}
+figure.term .win{background:var(--term)}
+.bar{display:flex;align-items:center;gap:12px;background:var(--bar);padding:0 12px;height:38px;font:13px ui-monospace,Menlo,Consolas,monospace}
+figure.term .bar{background:#353b4f}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#f0a7a7}.dots i:nth-child(2){background:#efd29a}.dots i:nth-child(3){background:#a9d9b5}
+.tab{background:var(--win);color:#e8ecf5;padding:0 14px;height:100%;display:flex;align-items:center;gap:8px;border-top:2px solid #b9a9e0}
+figure.term .tab{background:var(--term);border-top-color:#a9d9b5}
+.tab::before{content:"";width:9px;height:9px;border-radius:3px;background:#e8d28f}
+.tab-json::before{background:#f3b98f}.tab-yaml::before{background:#e8a5c0}.tab-sh::before{background:#a9d9b5}
+.lang{margin-left:auto;color:#9aa3bb;font-size:12px}
+.copy{border:0;background:#454d66;color:#dfe4ef;border-radius:8px;padding:4px 10px;font:12px -apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.copy:hover{background:#56608350;background:#566083}
+pre{margin:0;padding:12px 0;overflow-x:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;color:inherit;padding:0;font:inherit;display:block;min-width:max-content}
+.l{display:flex;white-space:pre;padding-right:18px}.l:hover{background:rgba(255,255,255,.04)}
+.n{flex:0 0 3.2em;text-align:right;padding-right:16px;color:#6f7893;user-select:none;-webkit-user-select:none}
+.n.pr{color:#a9d9b5;flex-basis:2.2em;padding-right:8px;font-weight:700}
+.x{flex:1}.cm .x{color:#7f8aa3}
+.t-c{color:#7f8aa3;font-style:italic}.t-k{color:#c9afee}.t-s{color:#a9d9a0}.t-n{color:#f3b98f}.t-f{color:#8fc4ec}.t-b{color:#e8d28f}
+.t-a{color:#8fd0c8}.t-o{color:#e8a5c0}.t-p{color:#a6aec4}.t-v{color:#f3b98f}.t-cmd{color:#8fc4ec;font-weight:600}
+.lead{font-size:1.1rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 8px;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:20px 0}
+.card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;text-decoration:none;color:var(--ink);border:1px solid transparent;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(70,60,100,.12)}
+.card .no{font-weight:800;font-size:1.4rem;opacity:.55}.card .ct{font-weight:600;line-height:1.3}.card .cm{font-size:13px;opacity:.7}
+.c0{background:var(--lav)}.c1{background:var(--mint)}.c2{background:var(--peach)}.c3{background:var(--sky)}.c4{background:var(--rose)}.c5{background:var(--sand)}
+.foot{margin-top:28px;color:var(--muted)}
+pre.plain{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+</style></head>
+<body><div class="top"><a class="home" href="../index.html">&#9776; Оглавление</a><span class="pn"><a href="../lesson-03/lesson.html">&larr; Урок 3</a><a href="../lesson-05/lesson.html">Урок 5 &rarr;</a></span></div>
+<main class="wrap"><div class="badge">Урок 4 из 13</div><h1>Урок 4. Продюсер и консьюмер из консоли</h1>
+<p><strong>Цель:</strong> записывать события с ключами, читать их с разных позиций и наблюдать, как ключ определяет партицию.</p>
+<h3 class="sec sec-theory"><span>Теория</span></h3>
+<p>Продюсер выбирает партицию для каждого события по такому правилу: если ключ задан, партиция вычисляется из хеша ключа (числа, которое по фиксированному правилу вычисляется из ключа), поэтому события с одним ключом всегда попадают в одну партицию; если ключа нет, продюсер распределяет события по партициям сам. Консьюмер читает партицию строго по возрастанию offset и запоминает, до какого места дошёл.</p>
+<p>На этом уроке мы используем консольные утилиты (программы, которые запускаются из командной строки) из дистрибутива (скачанного архива Kafka): они устроены просто и хорошо показывают, что происходит.</p>
+<div class="note warn"><strong>Важно про имена флагов.</strong> Начиная с Kafka 4.2 (<a href="https://kafka.apache.org/42/getting-started/upgrade/">KIP-1147</a>; KIP — номерное предложение по улучшению Kafka) у консольных утилит изменились имена: <code>--property</code> заменён на <code>--reader-property</code> у продюсера и на <code>--formatter-property</code> у консьюмера, а <code>--producer-property</code> и <code>--consumer-property</code> — на <code>--command-property</code>. Старые имена пока работают, но выводят предупреждение об устаревании и будут удалены в Kafka 5.0. В методичке везде используются новые имена.</div>
+<h3 class="sec sec-practice"><span>Практика</span></h3>
+<p>Понадобятся два терминала, топик <code>orders</code> с 3 партициями из урока 3 (если вы увеличивали его до 6, это тоже подойдёт).</p>
+<p><strong>Шаг 1. Запишите события без ключа</strong></p>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-console-producer.sh</span> <span class="t-a">--topic</span> orders <span class="t-a">--bootstrap-server</span> localhost:9092</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> заказ 1 создан</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> заказ 2 создан</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> заказ 3 создан</span></div></code></pre></div></figure>
+<p>Завершите ввод через <code>Ctrl-C</code>.</p>
+<p><strong>Шаг 2. Прочитайте всё с начала</strong></p>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-console-consumer.sh</span> <span class="t-a">--topic</span> orders <span class="t-a">--from-beginning</span> <span class="t-a">--bootstrap-server</span> localhost:9092</span></div></code></pre></div></figure>
+<p>Обратите внимание на порядок: между партициями он может отличаться от порядка записи. Остановите консьюмер через <code>Ctrl-C</code>.</p>
+<p><strong>Шаг 3. Запишите события с ключом</strong></p>
+<p>Утилите нужно сказать, что строка состоит из ключа и значения, разделённых символом:</p>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-console-producer.sh</span> <span class="t-a">--topic</span> orders <span class="t-a">--bootstrap-server</span> localhost:9092 \</span></div><div class="l"><span class="n pr">></span><span class="x">  <span class="t-a">--reader-property</span> parse.key=true <span class="t-a">--reader-property</span> key.separator=:</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> 100:создан</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> 101:создан</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> 100:оплачен</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> 100:отгружен</span></div><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">&gt;</span> 101:оплачен</span></div></code></pre></div></figure>
+<p><strong>Шаг 4. Покажите ключ, партицию и offset</strong></p>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-console-consumer.sh</span> <span class="t-a">--topic</span> orders <span class="t-a">--from-beginning</span> <span class="t-a">--bootstrap-server</span> localhost:9092 \</span></div><div class="l"><span class="n pr">></span><span class="x">  <span class="t-a">--formatter-property</span> print.key=true <span class="t-a">--formatter-property</span> print.partition=true \</span></div><div class="l"><span class="n pr">></span><span class="x">  <span class="t-a">--formatter-property</span> print.offset=true</span></div></code></pre></div></figure>
+<p>Найдите события с ключом <code>100</code>: все они должны быть в одной партиции и идти в порядке <code>создан</code>, <code>оплачен</code>, <code>отгружен</code>. То же для ключа <code>101</code>.</p>
+<p><strong>Шаг 5. Прочитайте одну партицию с выбранного места</strong></p>
+<figure class="code term"><figcaption><span class="tag tag-term">Терминал</span> <b>bash</b><span class="where">Вводите команды в терминале; символ <code>$</code> не набирайте</span></figcaption><div class="win"><div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="tab tab-sh">Терминал — bash</span><button class="copy" type="button">Копировать</button></div><pre><code><div class="l"><span class="n pr">$</span><span class="x"><span class="t-cmd">bin/kafka-console-consumer.sh</span> <span class="t-a">--topic</span> orders <span class="t-a">--partition</span> 0 <span class="t-a">--offset</span> 1 <span class="t-a">--max-messages</span> 2 \</span></div><div class="l"><span class="n pr">></span><span class="x">  <span class="t-a">--bootstrap-server</span> localhost:9092</span></div></code></pre></div></figure>
+<p>Этот консьюмер не использует группу, он сам указывает партицию и offset.</p>
+<p><strong>Шаг 6. Наблюдайте за потоком в реальном времени</strong></p>
+<p>В первом терминале запустите консьюмер из шага 4 (без <code>--from-beginning</code>), во втором — продюсер из шага 3. Каждое новое событие должно появляться в первом окне сразу после ввода.</p>
+<h3>Что запомнить</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Ситуация</th>
+<th>Что происходит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ключ не задан</td>
+<td>Партиция выбирается продюсером, порядок между партициями не гарантируется</td>
+</tr>
+<tr>
+<td>Ключ задан</td>
+<td>События с этим ключом идут в одну партицию, порядок внутри неё сохраняется</td>
+</tr>
+<tr>
+<td><code>--from-beginning</code></td>
+<td>Чтение начинается с самого раннего доступного события</td>
+</tr>
+<tr>
+<td>Нет <code>--from-beginning</code></td>
+<td>Консьюмер получает только новые события</td>
+</tr>
+</tbody>
+</table></div>
+<h3 class="sec sec-quiz"><span>Контрольные вопросы</span></h3>
+<ul>
+<li>Почему события с ключом <code>100</code> оказались в одной партиции?</li>
+<li>Что изменится в выводе, если запустить консьюмер без <code>--from-beginning</code>?</li>
+<li>Зачем у консьюмера может быть свойство <code>print.offset</code>?</li>
+<li>Что случится с событиями после чтения их консьюмером?</li>
+</ul>
+<h3 class="sec sec-task"><span>Самостоятельное задание</span></h3>
+<p>Запишите 20 событий с ключами <code>A</code>, <code>B</code>, <code>C</code>. Составьте таблицу «ключ → партиция → список offset». Проверьте, что для каждого ключа все события лежат в одной партиции.</p></main>
+<script>document.querySelectorAll('figure.code').forEach(function(f){
+  var b=f.querySelector('.copy'); if(!b) return;
+  b.addEventListener('click',function(){
+    var t=Array.from(f.querySelectorAll('.l')).map(function(l){var x=l.querySelector('.x');return x?x.textContent:''}).filter(function(s,i,a){return true}).join('\n');
+    if(f.classList.contains('term')){t=t.split('\n').filter(function(s){return !/^\s*#/.test(s)}).join('\n')}
+    function done(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1500)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done)}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}
+  });
+});
+</script></body></html>

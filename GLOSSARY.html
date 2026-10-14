@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Глоссарий и источники</title><style>:root{--bg:#faf7f2;--card:#fffdf9;--ink:#3e4456;--muted:#7b8296;--line:#ebe4d8;
+--lav:#e6def7;--lavd:#7d6bb3;--mint:#dcf0e6;--mintd:#4d8d73;--peach:#fbe6d8;--peachd:#b5754c;--sky:#dcebf8;--skyd:#4f84b0;--rose:#f8e1e8;--rosed:#b3647e;--sand:#f5ecd2;--sandd:#9a8444;
+--win:#323849;--bar:#3b4257;--term:#2b3041;--code-ink:#dfe4ef}
+@media (prefers-color-scheme:dark){:root{--bg:#22262f;--card:#2a2f3a;--ink:#dfe3ec;--muted:#98a0b5;--line:#3a4050;--lav:#3a3552;--lavd:#c5b6ee;--mint:#2f4640;--mintd:#9fd8c0;--peach:#4a3a33;--peachd:#f0c2a4;--sky:#2f3f52;--skyd:#9cc8ee;--rose:#4a3640;--rosed:#f0b3c6;--sand:#4a4430;--sandd:#e5d396}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:14px}
+.top a{color:var(--lavd);text-decoration:none;font-weight:600}.top a:hover{text-decoration:underline}
+.pn{display:flex;gap:18px}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+.badge{display:inline-block;background:var(--lav);color:var(--lavd);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px}
+h1{font-size:2rem;line-height:1.25;margin:.2em 0 .8em;color:var(--ink)}
+h2{font-size:1.5rem;margin:2em 0 .6em;color:var(--ink)}
+h3{font-size:1.15rem;margin:1.8em 0 .6em}
+h3.sec{display:flex;align-items:center}
+h3.sec span{display:inline-block;padding:5px 16px;border-radius:12px;font-weight:700}
+.sec-theory span{background:var(--sky);color:var(--skyd)}.sec-practice span{background:var(--mint);color:var(--mintd)}
+.sec-quiz span{background:var(--sand);color:var(--sandd)}.sec-task span{background:var(--rose);color:var(--rosed)}
+p{margin:.8em 0}a{color:var(--skyd)}strong{color:var(--ink)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--lav);color:var(--lavd);padding:.12em .42em;border-radius:6px}
+ul,ol{padding-left:1.4em}li{margin:.3em 0}li::marker{color:var(--lavd)}
+.tw{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{background:var(--sky);color:var(--skyd);text-align:left;padding:10px 14px}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.note{margin:1.2em 0;padding:12px 16px;border-radius:14px;border-left:5px solid}
+.note.warn{background:var(--peach);border-color:var(--peachd)}
+.note.ok{background:var(--mint);border-color:var(--mintd)}
+.note.info{background:var(--sand);border-color:var(--sandd)}
+.note .ni{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mintd);margin-bottom:2px}
+.note code{background:rgba(255,255,255,.55);color:inherit}
+@media (prefers-color-scheme:dark){.note code{background:rgba(0,0,0,.25)}}
+figure.code{margin:1.4em 0}
+figure.code figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;font-size:14px}
+.where{color:var(--muted);flex-basis:100%}.where code{font-size:.9em}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tag-term{background:var(--mint);color:var(--mintd)}.tag-file{background:var(--lav);color:var(--lavd)}
+.win{border-radius:14px;overflow:hidden;background:var(--win);color:var(--code-ink);box-shadow:0 6px 24px rgba(70,60,100,.14)}
+figure.term .win{background:var(--term)}
+.bar{display:flex;align-items:center;gap:12px;background:var(--bar);padding:0 12px;height:38px;font:13px ui-monospace,Menlo,Consolas,monospace}
+figure.term .bar{background:#353b4f}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#f0a7a7}.dots i:nth-child(2){background:#efd29a}.dots i:nth-child(3){background:#a9d9b5}
+.tab{background:var(--win);color:#e8ecf5;padding:0 14px;height:100%;display:flex;align-items:center;gap:8px;border-top:2px solid #b9a9e0}
+figure.term .tab{background:var(--term);border-top-color:#a9d9b5}
+.tab::before{content:"";width:9px;height:9px;border-radius:3px;background:#e8d28f}
+.tab-json::before{background:#f3b98f}.tab-yaml::before{background:#e8a5c0}.tab-sh::before{background:#a9d9b5}
+.lang{margin-left:auto;color:#9aa3bb;font-size:12px}
+.copy{border:0;background:#454d66;color:#dfe4ef;border-radius:8px;padding:4px 10px;font:12px -apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.copy:hover{background:#56608350;background:#566083}
+pre{margin:0;padding:12px 0;overflow-x:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;color:inherit;padding:0;font:inherit;display:block;min-width:max-content}
+.l{display:flex;white-space:pre;padding-right:18px}.l:hover{background:rgba(255,255,255,.04)}
+.n{flex:0 0 3.2em;text-align:right;padding-right:16px;color:#6f7893;user-select:none;-webkit-user-select:none}
+.n.pr{color:#a9d9b5;flex-basis:2.2em;padding-right:8px;font-weight:700}
+.x{flex:1}.cm .x{color:#7f8aa3}
+.t-c{color:#7f8aa3;font-style:italic}.t-k{color:#c9afee}.t-s{color:#a9d9a0}.t-n{color:#f3b98f}.t-f{color:#8fc4ec}.t-b{color:#e8d28f}
+.t-a{color:#8fd0c8}.t-o{color:#e8a5c0}.t-p{color:#a6aec4}.t-v{color:#f3b98f}.t-cmd{color:#8fc4ec;font-weight:600}
+.lead{font-size:1.1rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 8px;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:20px 0}
+.card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;text-decoration:none;color:var(--ink);border:1px solid transparent;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(70,60,100,.12)}
+.card .no{font-weight:800;font-size:1.4rem;opacity:.55}.card .ct{font-weight:600;line-height:1.3}.card .cm{font-size:13px;opacity:.7}
+.c0{background:var(--lav)}.c1{background:var(--mint)}.c2{background:var(--peach)}.c3{background:var(--sky)}.c4{background:var(--rose)}.c5{background:var(--sand)}
+.foot{margin-top:28px;color:var(--muted)}
+pre.plain{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+</style></head>
+<body><div class="top"><a class="home" href="index.html">&#9776; Оглавление</a></div>
+<main class="wrap"><h1>Глоссарий и источники</h1>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Термин</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Брокер (broker)</td>
+<td>Сервер Kafka, хранящий партиции и обслуживающий клиентов</td>
+</tr>
+<tr>
+<td>Топик (topic)</td>
+<td>Именованный поток событий</td>
+</tr>
+<tr>
+<td>Партиция (partition)</td>
+<td>Упорядоченный журнал внутри топика; единица параллелизма</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>Номер события в партиции</td>
+</tr>
+<tr>
+<td>Ключ (key)</td>
+<td>Часть события, по которой выбирается партиция</td>
+</tr>
+<tr>
+<td>Лидер, фолловер</td>
+<td>Основная и копирующая реплики партиции</td>
+</tr>
+<tr>
+<td>ISR</td>
+<td>Реплики, синхронные с лидером</td>
+</tr>
+<tr>
+<td>Consumer group</td>
+<td>Группа консьюмеров, делящих партиции топика</td>
+</tr>
+<tr>
+<td>Лаг (lag)</td>
+<td>Отставание группы от конца журнала</td>
+</tr>
+<tr>
+<td>Retention</td>
+<td>Срок или объём хранения событий</td>
+</tr>
+<tr>
+<td>Compaction</td>
+<td>Сжатие журнала: остаётся последнее значение для ключа</td>
+</tr>
+<tr>
+<td>Tombstone</td>
+<td>Событие с ключом и пустым значением, удаляющее ключ при сжатии</td>
+</tr>
+<tr>
+<td>KRaft</td>
+<td>Встроенный протокол метаданных и выбора контроллера, заменивший ZooKeeper</td>
+</tr>
+<tr>
+<td>Идемпотентность</td>
+<td>Повторная отправка не создаёт дублей</td>
+</tr>
+<tr>
+<td>Kafka Connect</td>
+<td>Инструмент переноса данных между Kafka и внешними системами</td>
+</tr>
+<tr>
+<td>Kafka Streams</td>
+<td>Библиотека потоковой обработки данных из Kafka</td>
+</tr>
+<tr>
+<td>Сериализация</td>
+<td>Превращение данных в байты для хранения и передачи; обратное превращение — десериализация</td>
+</tr>
+<tr>
+<td>Avro</td>
+<td>Компактный бинарный формат со схемой, записанной в JSON</td>
+</tr>
+<tr>
+<td>Schema Registry</td>
+<td>Отдельный сервис (не часть Apache Kafka), хранящий схемы и номера версий</td>
+</tr>
+<tr>
+<td>Subject</td>
+<td>Имя, под которым в реестре хранится история схемы (обычно &lt;топик&gt;-value)</td>
+</tr>
+<tr>
+<td>Совместимость (compatibility)</td>
+<td>Правило, по которому реестр принимает новую версию схемы: BACKWARD, FORWARD, FULL, NONE</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Источники</h3>
+<div class="note info"><strong>Статус проверки.</strong> Флаги и параметры консольных утилит и конфигураций сверены с исходными файлами Kafka 4.3 в репозитории (server.properties, ConsoleProducer, GetOffsetShell, StorageTool, StreamsConfig и др.) и с официальным примером Docker Compose. Код Node.js уроков 7, 8, 9 (шаг 5) и 12 запускался на имитации кластера и реестра; синтаксис Compose проверен командой <code>docker compose config</code>, <code>pom.xml</code> — на корректность XML, Java-код — на синтаксис. <strong>На настоящем брокере не запускалось:</strong> кластер из урока 6 (ручной и в Docker), Maven-сборка урока 12, Kafka Connect, Kafka Streams, транзакции и настоящий Schema Registry (в среде автора был закрыт доступ к дистрибутивам Kafka, Maven Central и Docker Hub). Поэтому перед занятием пройдите уроки 2, 6, 8 и 12 на чистой машине и поправьте то, что разойдётся.</div>
+<ul>
+<li><a href="https://kafka.apache.org/quickstart">Apache Kafka Quickstart</a>: установка, топики, консольные клиенты, Connect.</li>
+<li><a href="https://kafka.apache.org/intro">Apache Kafka Introduction</a>: основные понятия и программные интерфейсы.</li>
+<li><a href="https://kafka.apache.org/43/operations/kraft/">KRaft (раздел Operations, 4.3)</a>: роли узлов, кворум контроллеров, форматирование.</li>
+<li><a href="https://kafka.apache.org/43/streams/quickstart/">Kafka Streams Quick Start (4.3)</a>: демонстрационное приложение WordCount.</li>
+<li><a href="https://kafka.apache.org/42/getting-started/upgrade/">Upgrading to 4.2 (KIP-1147 и новые имена флагов)</a>.</li>
+<li><a href="https://kafka.apache.org/documentation">Документация Kafka</a>: конфигурации, дизайн, безопасность, эксплуатация.</li>
+<li><a href="https://docs.confluent.io/platform/current/schema-registry/index.html">Confluent Schema Registry</a> и <a href="https://avro.apache.org/docs/">Avro</a>: реестр схем, режимы совместимости, REST-интерфейс (урок 8).</li>
+</ul></main>
+<script>document.querySelectorAll('figure.code').forEach(function(f){
+  var b=f.querySelector('.copy'); if(!b) return;
+  b.addEventListener('click',function(){
+    var t=Array.from(f.querySelectorAll('.l')).map(function(l){var x=l.querySelector('.x');return x?x.textContent:''}).filter(function(s,i,a){return true}).join('\n');
+    if(f.classList.contains('term')){t=t.split('\n').filter(function(s){return !/^\s*#/.test(s)}).join('\n')}
+    function done(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1500)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done)}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}
+  });
+});
+</script></body></html>

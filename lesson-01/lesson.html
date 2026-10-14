@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Урок 1. Что такое Kafka</title><style>:root{--bg:#faf7f2;--card:#fffdf9;--ink:#3e4456;--muted:#7b8296;--line:#ebe4d8;
+--lav:#e6def7;--lavd:#7d6bb3;--mint:#dcf0e6;--mintd:#4d8d73;--peach:#fbe6d8;--peachd:#b5754c;--sky:#dcebf8;--skyd:#4f84b0;--rose:#f8e1e8;--rosed:#b3647e;--sand:#f5ecd2;--sandd:#9a8444;
+--win:#323849;--bar:#3b4257;--term:#2b3041;--code-ink:#dfe4ef}
+@media (prefers-color-scheme:dark){:root{--bg:#22262f;--card:#2a2f3a;--ink:#dfe3ec;--muted:#98a0b5;--line:#3a4050;--lav:#3a3552;--lavd:#c5b6ee;--mint:#2f4640;--mintd:#9fd8c0;--peach:#4a3a33;--peachd:#f0c2a4;--sky:#2f3f52;--skyd:#9cc8ee;--rose:#4a3640;--rosed:#f0b3c6;--sand:#4a4430;--sandd:#e5d396}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font-size:14px}
+.top a{color:var(--lavd);text-decoration:none;font-weight:600}.top a:hover{text-decoration:underline}
+.pn{display:flex;gap:18px}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+.badge{display:inline-block;background:var(--lav);color:var(--lavd);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px}
+h1{font-size:2rem;line-height:1.25;margin:.2em 0 .8em;color:var(--ink)}
+h2{font-size:1.5rem;margin:2em 0 .6em;color:var(--ink)}
+h3{font-size:1.15rem;margin:1.8em 0 .6em}
+h3.sec{display:flex;align-items:center}
+h3.sec span{display:inline-block;padding:5px 16px;border-radius:12px;font-weight:700}
+.sec-theory span{background:var(--sky);color:var(--skyd)}.sec-practice span{background:var(--mint);color:var(--mintd)}
+.sec-quiz span{background:var(--sand);color:var(--sandd)}.sec-task span{background:var(--rose);color:var(--rosed)}
+p{margin:.8em 0}a{color:var(--skyd)}strong{color:var(--ink)}
+code{font:0.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--lav);color:var(--lavd);padding:.12em .42em;border-radius:6px}
+ul,ol{padding-left:1.4em}li{margin:.3em 0}li::marker{color:var(--lavd)}
+.tw{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{background:var(--sky);color:var(--skyd);text-align:left;padding:10px 14px}
+td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--card) 70%,var(--bg))}
+.note{margin:1.2em 0;padding:12px 16px;border-radius:14px;border-left:5px solid}
+.note.warn{background:var(--peach);border-color:var(--peachd)}
+.note.ok{background:var(--mint);border-color:var(--mintd)}
+.note.info{background:var(--sand);border-color:var(--sandd)}
+.note .ni{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mintd);margin-bottom:2px}
+.note code{background:rgba(255,255,255,.55);color:inherit}
+@media (prefers-color-scheme:dark){.note code{background:rgba(0,0,0,.25)}}
+figure.code{margin:1.4em 0}
+figure.code figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px;font-size:14px}
+.where{color:var(--muted);flex-basis:100%}.where code{font-size:.9em}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tag-term{background:var(--mint);color:var(--mintd)}.tag-file{background:var(--lav);color:var(--lavd)}
+.win{border-radius:14px;overflow:hidden;background:var(--win);color:var(--code-ink);box-shadow:0 6px 24px rgba(70,60,100,.14)}
+figure.term .win{background:var(--term)}
+.bar{display:flex;align-items:center;gap:12px;background:var(--bar);padding:0 12px;height:38px;font:13px ui-monospace,Menlo,Consolas,monospace}
+figure.term .bar{background:#353b4f}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#f0a7a7}.dots i:nth-child(2){background:#efd29a}.dots i:nth-child(3){background:#a9d9b5}
+.tab{background:var(--win);color:#e8ecf5;padding:0 14px;height:100%;display:flex;align-items:center;gap:8px;border-top:2px solid #b9a9e0}
+figure.term .tab{background:var(--term);border-top-color:#a9d9b5}
+.tab::before{content:"";width:9px;height:9px;border-radius:3px;background:#e8d28f}
+.tab-json::before{background:#f3b98f}.tab-yaml::before{background:#e8a5c0}.tab-sh::before{background:#a9d9b5}
+.lang{margin-left:auto;color:#9aa3bb;font-size:12px}
+.copy{border:0;background:#454d66;color:#dfe4ef;border-radius:8px;padding:4px 10px;font:12px -apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.copy:hover{background:#56608350;background:#566083}
+pre{margin:0;padding:12px 0;overflow-x:auto;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;color:inherit;padding:0;font:inherit;display:block;min-width:max-content}
+.l{display:flex;white-space:pre;padding-right:18px}.l:hover{background:rgba(255,255,255,.04)}
+.n{flex:0 0 3.2em;text-align:right;padding-right:16px;color:#6f7893;user-select:none;-webkit-user-select:none}
+.n.pr{color:#a9d9b5;flex-basis:2.2em;padding-right:8px;font-weight:700}
+.x{flex:1}.cm .x{color:#7f8aa3}
+.t-c{color:#7f8aa3;font-style:italic}.t-k{color:#c9afee}.t-s{color:#a9d9a0}.t-n{color:#f3b98f}.t-f{color:#8fc4ec}.t-b{color:#e8d28f}
+.t-a{color:#8fd0c8}.t-o{color:#e8a5c0}.t-p{color:#a6aec4}.t-v{color:#f3b98f}.t-cmd{color:#8fc4ec;font-weight:600}
+.lead{font-size:1.1rem;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 8px;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:20px 0}
+.card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;text-decoration:none;color:var(--ink);border:1px solid transparent;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(70,60,100,.12)}
+.card .no{font-weight:800;font-size:1.4rem;opacity:.55}.card .ct{font-weight:600;line-height:1.3}.card .cm{font-size:13px;opacity:.7}
+.c0{background:var(--lav)}.c1{background:var(--mint)}.c2{background:var(--peach)}.c3{background:var(--sky)}.c4{background:var(--rose)}.c5{background:var(--sand)}
+.foot{margin-top:28px;color:var(--muted)}
+pre.plain{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+</style></head>
+<body><div class="top"><a class="home" href="../index.html">&#9776; Оглавление</a><span class="pn"><span></span><a href="../lesson-02/lesson.html">Урок 2 &rarr;</a></span></div>
+<main class="wrap"><div class="badge">Урок 1 из 13</div><h1>Урок 1. Что такое Kafka</h1>
+<p><strong>Цель:</strong> объяснить своими словами, что такое событие, топик, брокер, продюсер и консьюмер, и назвать задачи, для которых берут Kafka.</p>
+<h3 class="sec sec-theory"><span>Теория</span></h3>
+<p>Apache Kafka — распределённая платформа потоковой обработки событий (распределённая — работающая сразу на нескольких серверах; потоковая обработка — работа с данными по мере их появления, а не пачкой раз в сутки). По определению <a href="https://kafka.apache.org/intro">официального введения</a>, она объединяет три возможности: публиковать и читать потоки событий, надёжно хранить их столько, сколько нужно, и обрабатывать их по мере поступления или позже.</p>
+<p><strong>Событие</strong> фиксирует факт «что-то произошло»: у него есть ключ (признак, по которому события группируются, например имя клиента), значение (содержание события), время и необязательные заголовки (служебные пометки, например источник события). Пример: ключ «Alice», значение «Перевела 200 $ Bob», время 25.06.2020 14:06.</p>
+<p>Простая аналогия: Kafka — это не почтовый ящик, из которого письмо исчезает после прочтения, а журнал на полке. Записи дописываются в конец, их можно перечитывать сколько угодно раз, а удаляются они только по истечении срока хранения.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Понятие</th>
+<th>Что это</th>
+<th>Аналогия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Событие (record, message)</td>
+<td>Одна запись: ключ, значение, время</td>
+<td>Строка в журнале</td>
+</tr>
+<tr>
+<td>Топик (topic)</td>
+<td>Именованный поток событий</td>
+<td>Папка с журналом, например <code>payments</code></td>
+</tr>
+<tr>
+<td>Партиция (partition)</td>
+<td>Упорядоченная часть топика на одном брокере</td>
+<td>Отдельная тетрадь внутри папки</td>
+</tr>
+<tr>
+<td>Брокер (broker)</td>
+<td>Сервер Kafka, хранящий партиции</td>
+<td>Шкаф, где лежат тетради</td>
+</tr>
+<tr>
+<td>Продюсер (producer)</td>
+<td>Приложение, пишущее события</td>
+<td>Автор записей</td>
+</tr>
+<tr>
+<td>Консьюмер (consumer)</td>
+<td>Приложение, читающее события</td>
+<td>Читатель со своей закладкой</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>Номер события внутри партиции</td>
+<td>Номер строки</td>
+</tr>
+</tbody>
+</table></div>
+<p>Схема архитектуры (продюсеры пишут в партиции топика, группы консьюмеров читают их независимо) описана текстом выше.</p>
+<p>Продюсеры (приложения, которые пишут события) отправляют события в партиции топика, а хранят партиции брокеры (серверы Kafka); консьюмеры (приложения, которые читают события) объединяются в группы: внутри группы каждую партицию читает один консьюмер, а разные группы читают одни и те же события независимо.</p>
+<p>Три свойства, которые отличают Kafka от обычной очереди (из неё сообщение исчезает после прочтения):</p>
+<ol>
+<li>Продюсеры и консьюмеры не знают друг о друге и не ждут друг друга.</li>
+<li>События не удаляются после чтения: их можно прочитать повторно и разными приложениями.</li>
+<li>Порядок гарантируется внутри одной партиции, а события с одним ключом попадают в одну партицию.</li>
+</ol>
+<p><strong>Где применяют:</strong> платежи и банковские операции в реальном времени, отслеживание транспорта, данные с датчиков IoT (Internet of Things, «интернет вещей»: умные устройства, присылающие данные), обработка заказов и действий пользователей, обмен данными между отделами компании, основа для микросервисов (небольших независимых программ, из которых собрана большая система).</p>
+<p><strong>Пять программных интерфейсов Kafka</strong><strong> (API — наборов функций, через которые программа обращается к Kafka)</strong> (мы пройдём их по порядку): Admin API, Producer API, Consumer API, Kafka Streams и Kafka Connect.</p>
+<h3 class="sec sec-practice"><span>Практика (без установки)</span></h3>
+<p>Смоделируйте интернет-магазин на бумаге или в таблице.</p>
+<ol>
+<li>Выпишите 5 видов событий: например, <code>заказ создан</code>, <code>заказ оплачен</code>, <code>товар отгружен</code>.</li>
+<li>Для каждого придумайте имя топика, ключ и значение (какие поля).</li>
+<li>Решите, по какому ключу разумно делить события на партиции, чтобы все события одного заказа шли по порядку. Подсказка: ключ — номер заказа.</li>
+<li>Назовите по два приложения-продюсера и консьюмера для каждого топика.</li>
+</ol>
+<h3 class="sec sec-quiz"><span>Контрольные вопросы</span></h3>
+<ul>
+<li>Чем топик отличается от партиции?</li>
+<li>Почему Kafka не удаляет событие после того, как его прочитали?</li>
+<li>Что гарантирует Kafka про порядок событий и в каких пределах?</li>
+<li>Почему продюсеру не нужно ждать консьюмера?</li>
+</ul>
+<h3 class="sec sec-task"><span>Самостоятельное задание</span></h3>
+<p>Найдите в разделе <a href="https://kafka.apache.org/powered-by">Use Cases</a> один пример компании и опишите в 5 предложениях: что у неё является событием, какие топики можно выделить и кто их читает.</p></main>
+<script>document.querySelectorAll('figure.code').forEach(function(f){
+  var b=f.querySelector('.copy'); if(!b) return;
+  b.addEventListener('click',function(){
+    var t=Array.from(f.querySelectorAll('.l')).map(function(l){var x=l.querySelector('.x');return x?x.textContent:''}).filter(function(s,i,a){return true}).join('\n');
+    if(f.classList.contains('term')){t=t.split('\n').filter(function(s){return !/^\s*#/.test(s)}).join('\n')}
+    function done(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Копировать'},1500)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done)}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done()}
+  });
+});
+</script></body></html>
